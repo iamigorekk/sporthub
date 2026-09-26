@@ -81,7 +81,7 @@ Field reference, errors and client guidance: [`API.md`](API.md). Machine-readabl
 
 ## From a post to a signal
 
-One real event, as `/events` returns it from the snapshot collected 22.09 12:20 UTC (219 posts judged, 3 surfaced):
+One real event from an earlier snapshot (22.09 12:20 UTC, 219 posts judged, 3 surfaced), shown as `/events` returned it then. The live volume is in the badge above and in `/health`:
 
 | Step | Observed fact | Where to check |
 |---|---|---|

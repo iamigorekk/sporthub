@@ -17,9 +17,9 @@ Returns service status, the latest collection timestamp, snapshot volume and whe
   "status": "ok",
   "service": "sporthub-api",
   "version": 2,
-  "collectedAt": "2026-09-26T05:44:09Z",
-  "posts": 1208,
-  "judged": 1182,
+  "collectedAt": "2026-09-26T05:49:12+00:00",
+  "posts": 1198,
+  "judged": 1198,
   "matches": 28,
   "integrations": {
     "twitter": true,
