@@ -1,0 +1,283 @@
+openapi: 3.1.0
+info:
+  title: SportHub API
+  version: 0.2.0
+  description: >-
+    Read-only access to the latest SportHub sports-intelligence snapshot.
+    Collection and model evaluation happen server-side; API reads do not call paid upstreams.
+  contact:
+    url: https://sporthub.sh
+servers:
+  - url: https://sporthub.sh/api
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Read service and snapshot health
+      responses:
+        '200':
+          description: Current service state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /events:
+    get:
+      operationId: listEvents
+      summary: List source-backed structured events
+      parameters:
+        - $ref: '#/components/parameters/MatchId'
+      responses:
+        '200':
+          description: Latest completed event snapshot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSnapshot'
+        '403':
+          $ref: '#/components/responses/Vip'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /matches:
+    get:
+      operationId: listMatches
+      summary: List upcoming matches with access level and team HP
+      responses:
+        '200':
+          description: Upcoming matches, nearest first
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [matches, freeMatches]
+                properties:
+                  collectedAt:
+                    type: [string, 'null']
+                  freeMatches:
+                    type: integer
+                  matches:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Match'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /state:
+    get:
+      operationId: getTerminalState
+      summary: Read the experimental terminal state
+      description: >-
+        Experimental internal view used by the website terminal. Field names are not
+        stable; do not depend on them.
+      parameters:
+        - $ref: '#/components/parameters/MatchId'
+      responses:
+        '200':
+          description: Current terminal snapshot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerminalState'
+        '403':
+          $ref: '#/components/responses/Vip'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  parameters:
+    MatchId:
+      name: match
+      in: query
+      required: false
+      description: Match id from /matches. /events without it returns all free matches; /state returns the first free match.
+      schema:
+        type: string
+  responses:
+    Vip:
+      description: VIP match. SHUB Pass required; only the header is returned
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [error, access, requires, match]
+            properties:
+              error:
+                type: string
+                const: vip
+              access:
+                type: string
+                const: vip
+              requires:
+                type: string
+              match:
+                $ref: '#/components/schemas/Match'
+              signals:
+                type: integer
+    NotFound:
+      description: Unknown match id
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    ServerError:
+      description: Snapshot read failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+    Health:
+      type: object
+      required: [status, service, version, posts, judged, integrations]
+      properties:
+        status:
+          type: string
+          const: ok
+        service:
+          type: string
+          const: sporthub-api
+        version:
+          type: integer
+          minimum: 1
+        collectedAt:
+          type: [string, 'null']
+        posts:
+          type: integer
+          minimum: 0
+        judged:
+          type: integer
+          minimum: 0
+        matches:
+          type: integer
+          minimum: 0
+        integrations:
+          type: object
+          required: [twitter, jev]
+          properties:
+            twitter:
+              type: boolean
+            jev:
+              type: boolean
+    EventSnapshot:
+      type: object
+      required: [posts, judged, events, mode]
+      properties:
+        collectedAt:
+          type: [string, 'null']
+        posts:
+          type: integer
+          minimum: 0
+        judged:
+          type: integer
+          minimum: 0
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        match:
+          type: [string, 'null']
+        mode:
+          type: string
+    Event:
+      type: object
+      required: [player, category, probability, identityConfidence, source, text, url]
+      properties:
+        player:
+          type: string
+        category:
+          type: string
+        summary:
+          type: string
+        probability:
+          type: number
+          minimum: 0
+          maximum: 1
+        identityConfidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        source:
+          type: string
+        text:
+          type: string
+        url:
+          type: string
+          format: uri
+        publishedAt:
+          type: [string, 'null']
+          format: date-time
+        eventDate:
+          type: [string, 'null']
+          format: date-time
+        freshnessClass:
+          type: [number, 'null']
+        sourceWeight:
+          type: [number, 'null']
+          minimum: 0
+          maximum: 1
+        verified:
+          type: [boolean, 'null']
+        sport:
+          type: string
+        match:
+          type: string
+        reports:
+          type: integer
+          minimum: 1
+    Match:
+      type: object
+      required: [id, sport, home, away, startsAt, access, signals, teams]
+      properties:
+        id:
+          type: string
+        sport:
+          type: string
+          enum: [soccer, basketball, tennis, mma, esports]
+        competition:
+          type: string
+        access:
+          type: string
+          enum: [free, vip]
+        signals:
+          type: integer
+          minimum: 0
+        url:
+          type: [string, 'null']
+        home:
+          type: string
+        away:
+          type: string
+        startsAt:
+          type: string
+          format: date-time
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamCoverage'
+    TeamCoverage:
+      type: object
+      required: [name, hp]
+      properties:
+        name:
+          type: string
+        hp:
+          type: [number, 'null']
+          description: null on VIP matches
+        players:
+          type: integer
+          minimum: 0
+    TerminalState:
+      type: object
+      additionalProperties: true
+      description: Experimental internal view used by the website terminal; field names are not stable, do not depend on them.
