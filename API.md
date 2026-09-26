@@ -56,7 +56,7 @@ Every upcoming match in the snapshot, nearest first, across soccer, basketball, 
 }
 ```
 
-`access` is `free` for the two nearest soccer matches and `vip` for the rest (SHUB Pass, 1,000,000 `$SHUB`).
+`access` is `free` for the two nearest soccer matches and `vip` for the rest (SportHub Pass, 1,000,000 `$SportHub`).
 
 ### `GET /events?match=<id>`
 
@@ -92,7 +92,7 @@ Without `match`, the first free match. Returns the full breakdown rendered by th
 
 - Successful responses use `200` and `application/json; charset=utf-8`.
 - Unknown `/api/*` paths and unknown match ids return `404` with `{ "error": "not found" }`.
-- VIP matches on `/events` and `/state` return `403` with `{ "error": "vip", "access": "vip", "requires": "1000000 SHUB", "match": {…}, "signals": N }`.
+- VIP matches on `/events` and `/state` return `403` with `{ "error": "vip", "access": "vip", "requires": "1000000 SportHub", "match": {…}, "signals": N }`.
 - Snapshot read failures return `500` with a short error type.
 - Responses currently send `Cache-Control: no-store`.
 - Only `GET` is served; no write routes are exposed (other methods return `501`).

@@ -23,14 +23,14 @@ SportHub is an early sports-intelligence product. The interface is polished; the
 
 ## Demonstrated product surfaces
 
-The signal room scan, the social feed and the multisport rooms demonstrate the intended interaction model. They do not imply continuous collection for every sport. SHUB Pass currently demonstrates a holder-access flow; production wallet verification is not active.
+The signal room scan, the social feed and the multisport rooms demonstrate the intended interaction model. They do not imply continuous collection for every sport. SportHub Pass currently demonstrates a holder-access flow; production wallet verification is not active.
 
 ## Planned extensions
 
 - verified fixture and roster feeds;
 - continuous multi-match monitoring;
 - event clustering across repeated reports;
-- wallet-backed SHUB Pass access;
+- wallet-backed SportHub Pass access;
 - alerts and historical signal timelines;
 - prediction-market context beside the event feed.
 

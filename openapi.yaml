@@ -98,7 +98,7 @@ components:
         type: string
   responses:
     Vip:
-      description: VIP match. SHUB Pass required; only the header is returned
+      description: VIP match. SportHub Pass required; only the header is returned
       content:
         application/json:
           schema:

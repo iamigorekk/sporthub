@@ -5,21 +5,21 @@
 <p align="center">
   <a href="https://sporthub.sh/api/health"><img alt="api status, live from /api/health" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fsporthub.sh%2Fapi%2Fhealth&query=%24.status&label=api&color=FF9000&labelColor=080808&style=flat-square"></a>
   <a href="https://sporthub.sh/api/health"><img alt="posts judged in the latest snapshot, live from /api/health" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fsporthub.sh%2Fapi%2Fhealth&query=%24.judged&label=posts%20judged&color=A3A3A3&labelColor=080808&style=flat-square"></a>
+  <a href="https://www.ponsfamily.com/launchpad/0x4d151ef9187203cbc2ff89075cfa3abeeef71203"><img alt="Buy $SportHub on Pons" src="https://img.shields.io/badge/buy-%24SportHub%20on%20Pons-FF9000?style=flat-square&labelColor=080808"></a>
   <a href="openapi.yaml"><img alt="OpenAPI 3.1" src="https://img.shields.io/badge/OpenAPI-3.1-A3A3A3?style=flat-square&labelColor=080808"></a>
   <img alt="chain 4663 (Robinhood Chain)" src="https://img.shields.io/badge/chain-4663%20Robinhood-A3A3A3?style=flat-square&labelColor=080808">
   <img alt="no API key" src="https://img.shields.io/badge/API%20key-not%20required-A3A3A3?style=flat-square&labelColor=080808">
 </p>
 
-[Website](https://sporthub.sh) · [X](https://x.com/iamigorekk)
+[Website](https://sporthub.sh) · [Buy on Pons](https://www.ponsfamily.com/launchpad/0x4d151ef9187203cbc2ff89075cfa3abeeef71203) · [X](https://x.com/iamigorekk)
 
-> **$SHUB · contract address**
+> **$SportHub · contract address** (Robinhood Chain)
 >
 > ```text
-> Coming soon
+> 0x4d151ef9187203cbc2ff89075cfa3abeeef71203
 > ```
 >
-> The contract address has not been announced. Token details are to be confirmed. Trust only the address
-> published here and on [sporthub.sh](https://sporthub.sh).
+> **[Buy on Pons](https://www.ponsfamily.com/launchpad/0x4d151ef9187203cbc2ff89075cfa3abeeef71203)** · Trust only the address published here and on [sporthub.sh](https://sporthub.sh).
 
 **The game before the game.** The scoreboard tells you what happened. SportHub looks at what is happening around it.
 
@@ -34,7 +34,7 @@ the SportHub server.
 
 ## Watch demo
 
-<a href="docs/assets/demo-poster.png"><img src="docs/assets/demo.gif" width="100%" alt="28-second tour of sporthub.sh: the landing page with the $SHUB contract strip, the particle giraffe and source cards converging into the scout; a scroll to the three real signals of the current snapshot (Christensen, Casadó, Christensen) with their Jev classification; the 'what changes before kick-off' context board switching from Training to Travel; the match rooms (Argentina × France replay, FC Barcelona × Villarreal CF, your next match) and the soccer signal room scanning source cards into player judgements; and the social feed of training, travel and recovery updates with their HP shifts"></a>
+<a href="docs/assets/demo-poster.png"><img src="docs/assets/demo.gif" width="100%" alt="28-second tour of sporthub.sh: the landing page with the $SportHub contract strip, the particle giraffe and source cards converging into the scout; a scroll to the three real signals of the current snapshot (Christensen, Casadó, Christensen) with their Jev classification; the 'what changes before kick-off' context board switching from Training to Travel; the match rooms (Argentina × France replay, FC Barcelona × Villarreal CF, your next match) and the soccer signal room scanning source cards into player judgements; and the social feed of training, travel and recovery updates with their HP shifts"></a>
 
 Recorded from [sporthub.sh](https://sporthub.sh) in a browser, one take: **landing → the real signals of the current
 snapshot → what changes before kick-off → the match rooms and the signal room scan → the social feed**. The signal
@@ -66,7 +66,7 @@ curl -fsS 'https://sporthub.sh/api/events?match=<id>'        # source-backed eve
 | everything the terminal shows | `GET /state?match=<id>` | team HP, player cards, evidence, uncertain signals, priority feed. **Experimental**, may change before v1 |
 
 Base URL `https://sporthub.sh/api`. The two nearest soccer matches are free; for a VIP match `/events` and `/state`
-answer `403` with `{"error": "vip", "requires": "1000000 SHUB", "match": {...}}`: the header and signal count, no
+answer `403` with `{"error": "vip", "requires": "1000000 SportHub", "match": {...}}`: the header and signal count, no
 evidence. Matches drop off the list three hours after kick-off. Every route reads the latest server-side snapshot,
 refreshed hourly: a page view or an API call never triggers collection or a Jev evaluation, so reads cost nothing
 upstream. Ready clients:
@@ -141,9 +141,11 @@ more match relevance than a reserve, and every deduction stays linked to the pos
 **What it does not do.** It does not call anything upstream on read, does not expose credentials, prompts,
 watchlists or raw caches, and has no write routes. More in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
-## Access & $SHUB
+## Access & $SportHub
 
-**SHUB Pass**: two match breakdowns are free; the rest are VIP for wallets holding at least **1,000,000 `$SHUB`**.
+**$SportHub** is live on Robinhood Chain: `0x4d151ef9187203cbc2ff89075cfa3abeeef71203` ([buy on Pons](https://www.ponsfamily.com/launchpad/0x4d151ef9187203cbc2ff89075cfa3abeeef71203)).
+
+**SportHub Pass**: two match breakdowns are free; the rest are VIP for wallets holding at least **1,000,000 `$SportHub`**.
 There is no wallet verification yet. The gating is enforced by the API (`403` on VIP matches), but holding the token does not unlock anything yet.
 
 ## Data & limits
@@ -172,7 +174,7 @@ and `readme_media.py` puts the frames beside the wordmark; `record_demo.js` driv
 tour every time (Playwright + Chrome, Pillow, ffmpeg).
 
 Roadmap (planned, not shipped): (1) a stable v1 of `/state` with English field names; (2) a published CORS and
-rate-limit contract; (3) live fixture verification; (4) wallet-backed SHUB Pass.
+rate-limit contract; (3) live fixture verification; (4) wallet-backed SportHub Pass.
 
 Contributing: open an issue with the event URL or the `/events` row you looked at.
 
