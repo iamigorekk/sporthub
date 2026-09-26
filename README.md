@@ -177,5 +177,5 @@ rate-limit contract; (3) live fixture verification; (4) wallet-backed SHUB Pass.
 Contributing: open an issue with the event URL or the `/events` row you looked at.
 
 <p align="center">
-  <a href="https://sporthub.sh"><img src="docs/assets/signal-room.gif" width="420" alt="The SportHub giraffe made of orange particles, in sunglasses on a chair with the SportHub badge, while Instagram, X and Facebook source cards drift around it and signal lines converge into it"></a>
+  <a href="https://sporthub.sh"><img src="docs/assets/soccer-room.gif" width="100%" alt="SportHub soccer post analysis demo: a grid of 99 soccer photos fills in one by one while each new post is scored across twelve signals such as subject, source type, team link, priority and signal HP, and the live signal mix, snapshot bars and counters for posts read and typed decisions update in real time"></a>
 </p>
